@@ -57,7 +57,10 @@ fn makeCreature(comptime count: usize, comptime fmt: []const u8) [count]Animal {
                 //
                 // What do you think happens with Gators? Do they join with
                 // other animals or is this an error?
-                'g' => ???,
+                'g' => {
+                    animals[next_animal] = .Gator;
+                    next_animal += 1;
+                },
 
                 else => @compileError(std.fmt.comptimePrint("No animal starts with '{c}'!", .{char})),
             },
@@ -69,7 +72,7 @@ fn makeCreature(comptime count: usize, comptime fmt: []const u8) [count]Animal {
                     next_animal += 1;
                     // Something is missing here. After we finish a Llama, we
                     // need to be ready to _start_ over with a new animal...
-                    ???
+                    state = .start;
                 },
 
                 else => @compileError("Only llamas start with 'l'!"),
