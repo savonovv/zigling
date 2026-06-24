@@ -28,12 +28,12 @@ fn makeCreature(comptime count: usize, comptime fmt: []const u8) [count]Animal {
         start, // Ready to start a new animal.
         l, // This means we've seen an "l", so if we see an "m", we know it's a Llama.
     };
-    var state = State.start;
+    comptime var state = State.start;
 
     // We return an array of animals representing the creature. (This is why we
     // really needed the 'count' parameter. Arrays need a size.)
-    var animals: [count]Animal = undefined;
-    var next_animal: usize = 0;
+    comptime var animals: [count]Animal = undefined;
+    comptime var next_animal: usize = 0;
 
     inline for (fmt) |char| {
 
@@ -103,7 +103,7 @@ pub fn main() void {
     //
     // You can solve this by adding "comptime" to two of the variables in
     // makeCreature...
-    const creature = makeCreature(2, "mlm");
+    const creature = makeCreature(comptime 2, comptime "mlm");
 
     for (creature) |animal| {
         // @tagName gives us a string representing which variant of an enum we
